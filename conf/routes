@@ -1,0 +1,3 @@
+GET     /                           toy.controllers.HomeController.index
+
+->     /v1/posts                    posts.Routes
