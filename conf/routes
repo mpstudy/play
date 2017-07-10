@@ -1,1 +1,3 @@
 GET     /                           toy.controllers.HomeController.index
+GET     /count                      toy.controllers.CountController.count
+GET     /message                    toy.controllers.AsyncController.message
