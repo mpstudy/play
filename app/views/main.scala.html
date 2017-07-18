@@ -3,8 +3,11 @@
 <html>
   <head>
     <title>@title</title>
+    <script type="text/javascript" src="@routes.Assets.versioned("lib/jquery/jquery.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("lib/bootstrap/js/bootstrap.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/main.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.versioned("lib/bootstrap/3.3.6/js/bootstrap.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/main.css")">
   </head>
   <body>
     <section class="content">@content</section>

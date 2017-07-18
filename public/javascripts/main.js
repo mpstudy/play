@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-  alert("hello")
-
   $('input[type=password]').keyup(function() {
     var pswd = $(this).val();
 
