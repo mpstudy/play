@@ -1,0 +1,13 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>@title</title>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/main.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("lib/bootstrap/3.3.6/js/bootstrap.js")"></script>
+  </head>
+  <body>
+    <section class="content">@content</section>
+  </body>
+</html>
+
