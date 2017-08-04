@@ -19,6 +19,7 @@ import java.util.Map;
 public class HomeController extends Controller {
 
     private FormFactory formFactory;
+    private UserResourceHandler userResourceHandler;
 
     @Inject
     public HomeController(FormFactory formFactory) {
@@ -30,20 +31,33 @@ public class HomeController extends Controller {
         if(email != null) {
             return ok(views.html.index.render(email));
         } else {
-            return ok(views.html.login.render());
+            return ok(views.html.sign.render());
         }
     }
 
-    public Result login() {
+    public Result sign() {
         Map<String, String[]> body = request().body().asFormUrlEncoded();
-        session("connected", body.get("email")[0]);
+        String action = body.get("action")[0];
+        String email = body.get("email")[0];
+        String password = body.get("password")[0];
+        if (action.equals("SignIn")) {
+            signin(email, password);
+        } else if (action.equals("SignUp")) {
+            signup(email, password);
+        }
         return redirect("/");
     }
 
-    public Result logout() {
+    public void signin(String email, String password) {
+
+    }
+
+    public void signup(String email, String password) {
+
+    }
+
+    public Result signout() {
         session().remove("connected");
         return redirect("/");
     }
-
-
 }
