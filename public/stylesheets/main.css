@@ -42,16 +42,19 @@ a:hover { text-decoration: none }
 
 .search-box{margin:80px auto;position:absolute;}
 .caption{margin-bottom:50px;}
-.loginForm input[type=text], .loginForm input[type=password]{
+.signForm input[type=text], .signForm input[type=password]{
     margin-bottom:10px;
 }
-.loginForm input[type=submit]{
+.signin{
     background:#fb044a;
     color:#fff;
     font-weight:700;
-
 }
-
+.signup{
+    background:#16E7EE;
+    color:#000809;
+    font-weight:700;
+}
 
 #pswd_info {
     background: #dfdfdf none repeat scroll 0 0;

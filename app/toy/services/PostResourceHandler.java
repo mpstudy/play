@@ -28,29 +28,25 @@ public class PostResourceHandler {
     }
 
     public CompletionStage<Stream<PostResource>> find() {
-        return repository.list().thenApplyAsync(postDataStream -> {
-            return postDataStream.map(data -> new PostResource(data, link(data)));
-        }, ec.current());
+        return repository.list()
+                .thenApplyAsync(postDataStream -> postDataStream.map(data -> new PostResource(data, link(data))), ec.current());
     }
 
     public CompletionStage<PostResource> create(PostResource resource) {
         final PostData data = new PostData(resource.getTitle(), resource.getBody());
-        return repository.create(data).thenApplyAsync(savedData -> {
-            return new PostResource(savedData, link(savedData));
-        }, ec.current());
+        return repository.create(data)
+                .thenApplyAsync(savedData -> new PostResource(savedData, link(savedData)), ec.current());
     }
 
     public CompletionStage<Optional<PostResource>> lookup(String id) {
-        return repository.get(Long.parseLong(id)).thenApplyAsync(optionalData -> {
-            return optionalData.map(data -> new PostResource(data, link(data)));
-        }, ec.current());
+        return repository.get(Long.parseLong(id))
+                .thenApplyAsync(optionalData -> optionalData.map(data -> new PostResource(data, link(data))), ec.current());
     }
 
     public CompletionStage<Optional<PostResource>> update(String id, PostResource resource) {
         final PostData data = new PostData(resource.getTitle(), resource.getBody());
-        return repository.update(Long.parseLong(id), data).thenApplyAsync(optionalData -> {
-            return optionalData.map(op -> new PostResource(op, link(op)));
-        }, ec.current());
+        return repository.update(Long.parseLong(id), data)
+                .thenApplyAsync(optionalData -> optionalData.map(op -> new PostResource(op, link(op))), ec.current());
     }
 
     private String link(PostData data) {

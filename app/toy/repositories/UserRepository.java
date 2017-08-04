@@ -10,11 +10,13 @@ public interface UserRepository {
 
   CompletionStage<Stream<UserData>> list();
 
-  CompletionStage<UserData> create(UserData UserData);
+  CompletionStage<UserData> create(UserData userData);
 
   CompletionStage<Optional<UserData>> get(Long id);
 
-  CompletionStage<Optional<UserData>> update(Long id, UserData UserData);
+  CompletionStage<Stream<UserData>> find(String email);
+
+  CompletionStage<Optional<UserData>> update(Long id, UserData userData);
 
   CompletionStage<Optional<UserData>> delete(Long id);
 }

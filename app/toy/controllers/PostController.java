@@ -26,39 +26,30 @@ public class PostController extends Controller {
     }
 
     public CompletionStage<Result> list() {
-        return handler.find().thenApplyAsync(posts -> {
-            final List<PostResource> postList = posts.collect(Collectors.toList());
-            return ok(Json.toJson(postList));
-        }, ec.current());
+        return handler.find()
+                .thenApplyAsync(posts -> ok(Json.toJson(posts.collect(Collectors.toList()))), ec.current());
     }
 
     public CompletionStage<Result> show(String id) {
-        return handler.lookup(id).thenApplyAsync(optionalResource -> {
-            return optionalResource.map(resource ->
-                ok(Json.toJson(resource))
-            ).orElseGet(() ->
-                notFound()
-            );
-        }, ec.current());
+        return handler.lookup(id)
+                .thenApplyAsync(optionalResource -> optionalResource
+                        .map(resource -> ok(Json.toJson(resource)))
+                        .orElseGet(Results::notFound), ec.current());
     }
 
     public CompletionStage<Result> update(String id) {
         JsonNode json = request().body().asJson();
         PostResource resource = Json.fromJson(json, PostResource.class);
-        return handler.update(id, resource).thenApplyAsync(optionalResource -> {
-            return optionalResource.map(r ->
-                    ok(Json.toJson(r))
-            ).orElseGet(() ->
-                    notFound()
-            );
-        }, ec.current());
+        return handler.update(id, resource)
+                .thenApplyAsync(optionalResource -> optionalResource
+                        .map(r -> ok(Json.toJson(r)))
+                        .orElseGet(Results::notFound), ec.current());
     }
 
     public CompletionStage<Result> create() {
         JsonNode json = request().body().asJson();
         final PostResource resource = Json.fromJson(json, PostResource.class);
-        return handler.create(resource).thenApplyAsync(savedResource -> {
-            return created(Json.toJson(savedResource));
-        }, ec.current());
+        return handler.create(resource)
+                .thenApplyAsync(savedResource -> created(Json.toJson(savedResource)), ec.current());
     }
 }

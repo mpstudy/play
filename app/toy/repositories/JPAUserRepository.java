@@ -44,6 +44,11 @@ public class JPAUserRepository implements UserRepository {
   }
 
   @Override
+  public CompletionStage<Stream<UserData>> find(String email) {
+    return supplyAsync(() -> wrap(em -> Failsafe.with(circuitBreaker).get(() -> select(em, email))));
+  }
+
+  @Override
   public CompletionStage<Optional<UserData>> update(Long id, UserData UserData) {
     return supplyAsync(() -> wrap(em -> Failsafe.with(circuitBreaker).get(() -> modify(em, id, UserData))));
   }
@@ -64,6 +69,11 @@ public class JPAUserRepository implements UserRepository {
 
   private Stream<UserData> select(EntityManager em) {
     TypedQuery<UserData> query = em.createQuery("SELECT p FROM UserData p", UserData.class);
+    return query.getResultList().stream();
+  }
+
+  private Stream<UserData> select(EntityManager em, String email) {
+    TypedQuery<UserData> query = em.createQuery("SELECT p FROM UserData p where email = " + email, UserData.class);
     return query.getResultList().stream();
   }
 
