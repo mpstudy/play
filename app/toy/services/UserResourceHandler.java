@@ -28,28 +28,24 @@ public class UserResourceHandler {
     }
 
     public CompletionStage<Stream<UserResource>> find() {
-        return repository.list().thenApplyAsync(userDataStream -> {
-            return userDataStream.map(data -> new UserResource(data));
-        }, ec.current());
+        return repository.list()
+            .thenApplyAsync(userDataStream -> userDataStream.map(data -> new UserResource(data)), ec.current());
     }
 
     public CompletionStage<UserResource> create(UserResource resource) {
         final UserData data = new UserData(resource.getEmail(), resource.getPassword());
-        return repository.create(data).thenApplyAsync(savedData -> {
-            return new UserResource(savedData);
-        }, ec.current());
+        return repository.create(data)
+            .thenApplyAsync(savedData -> new UserResource(savedData), ec.current());
     }
 
     public CompletionStage<Optional<UserResource>> lookup(String id) {
-        return repository.get(Long.parseLong(id)).thenApplyAsync(optionalData -> {
-            return optionalData.map(data -> new UserResource(data));
-        }, ec.current());
+        return repository.get(Long.parseLong(id))
+            .thenApplyAsync(optionalData -> optionalData.map(data -> new UserResource(data)), ec.current());
     }
 
     public CompletionStage<Optional<UserResource>> update(String id, UserResource resource) {
         final UserData data = new UserData(resource.getEmail(), resource.getPassword());
-        return repository.update(Long.parseLong(id), data).thenApplyAsync(optionalData -> {
-            return optionalData.map(op -> new UserResource(op));
-        }, ec.current());
+        return repository.update(Long.parseLong(id), data)
+            .thenApplyAsync(optionalData -> optionalData.map(op -> new UserResource(op)), ec.current());
     }
 }
