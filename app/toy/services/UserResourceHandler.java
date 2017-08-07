@@ -32,6 +32,11 @@ public class UserResourceHandler {
             .thenApplyAsync(userDataStream -> userDataStream.map(data -> new UserResource(data)), ec.current());
     }
 
+    public CompletionStage<Stream<UserResource>> find(String email) {
+        return repository.find(email)
+            .thenApplyAsync(userDataStream -> userDataStream.map(data -> new UserResource(data)), ec.current());
+    }
+
     public CompletionStage<UserResource> create(UserResource resource) {
         final UserData data = new UserData(resource.getEmail(), resource.getPassword());
         return repository.create(data)

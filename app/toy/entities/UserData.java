@@ -12,6 +12,7 @@ public class UserData {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     public Long id;
+    @Column(unique=true)
     public String email;
     public String password;
 

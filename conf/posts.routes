@@ -1,6 +1,6 @@
 
-GET    /                     toy.controllers.PostController.list
-POST   /                     toy.controllers.PostController.create
+GET         /           toy.controllers.PostController.list
+POST        /           toy.controllers.PostController.create
 
-GET    /:id                 toy.controllers.PostController.show(id)
-POST    /:id                toy.controllers.PostController.update(id)
+GET         /:id        toy.controllers.PostController.show(id)
+POST        /:id        toy.controllers.PostController.update(id)
