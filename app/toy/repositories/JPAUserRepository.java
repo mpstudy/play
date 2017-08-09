@@ -73,7 +73,7 @@ public class JPAUserRepository implements UserRepository {
   }
 
   private Stream<UserData> select(EntityManager em, String email) {
-    TypedQuery<UserData> query = em.createQuery("SELECT p FROM UserData p where email = " + email, UserData.class);
+    TypedQuery<UserData> query = em.createQuery("SELECT p FROM UserData p where email = '" + email + "'", UserData.class);
     return query.getResultList().stream();
   }
 
