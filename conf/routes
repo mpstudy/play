@@ -1,6 +1,7 @@
 GET         /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
 GET         /                    toy.controllers.HomeController.index
 POST        /signin              toy.controllers.HomeController.signin
-POST        /signup             toy.controllers.HomeController.signup
+POST        /signup              toy.controllers.HomeController.signup
 POST        /signout             toy.controllers.HomeController.signout
+GET         /echo                toy.controllers.EchoController.socket
 ->          /v1/posts            posts.Routes
